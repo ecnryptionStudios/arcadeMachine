@@ -55,7 +55,7 @@
 </head>
 <body>
 
-<h1>🎮 Arcade Machine.</h1>
+<h1>🎮 Arcade Machine</h1>
 
 <div>
   <button class="scroll-button" id="left">&laquo;</button>
@@ -70,6 +70,7 @@
 </div>
 
 <script>
+  document.addEventListener('DOMContentLoaded', () => {
 (async () => {
   const response = await fetch('games.json');
   const data = await response.json();
@@ -142,6 +143,7 @@
   }
 });
 })();
+  });
 </script>
 </body>
 </html>
