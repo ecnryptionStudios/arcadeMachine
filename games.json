@@ -1,15 +1,15 @@
 {
   "games": {
     "game1": {
-      "image": "images/game1.png",
+      "image": "images/Controller.jpg",
       "code": "pub:game1code"
     },
     "game2": {
-      "image": "images/game2.png",
+      "image": "images/Controller.jpg",
       "code": "pub:game2code"
     },
     "game3": {
-      "image": "images/game3.png",
+      "image": "images/Controller.jpg",
       "code": "pub:game3code"
     }
   }
