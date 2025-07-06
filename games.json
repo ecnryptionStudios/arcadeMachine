@@ -2,15 +2,7 @@
   "games": {
     "game1": {
       "image": "images/Controller.jpg",
-      "code": "pub:game1code"
-    },
-    "game2": {
-      "image": "images/Controller.jpg",
-      "code": "pub:game2code"
-    },
-    "game3": {
-      "image": "images/Controller.jpg",
-      "code": "pub:game3code"
+      "code": "S42927-42368-97065-70256"
     }
   }
 }
