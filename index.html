@@ -63,10 +63,11 @@
   <button class="scroll-button" id="right">&raquo;</button>
 </div>
 
-<div id="iframe-container" style="position:relative;height:calc(300px + 5em);width:80%;overflow:hidden;">
-  <iframe id="game-frame" style="position:absolute;top:0;left:0;width:100%;height:100%;" 
-    src="" allowfullscreen="allowfullscreen" frameborder="0" 
-    sandbox="allow-scripts allow-same-origin"></iframe>
+<div id="iframe-container" style="position:relative;height:0;padding-bottom:117.6%;overflow:hidden;">
+  <iframe id="game-frame" style="position:absolute;top:0;left:0;width:100%;height:100%;"
+    src="" allowfullscreen="allowfullscreen"
+    sandbox="allow-popups allow-forms allow-scripts allow-same-origin"
+    frameborder="0"></iframe>
 </div>
 
 <script>
@@ -133,7 +134,7 @@
       // Start game: hide menu, show iframe
       menu.style.display = 'none';
       iframe.parentElement.style.display = 'block';
-      iframe.src = `https://arcade.makecode.com/---codeembed#pub:${selectedCode}`;
+      iframe.src = `https://arcade.makecode.com/---run?id=${selectedCode}`;
     }
   } else if (key === 'escape') {
     // Return to menu: show menu, hide iframe
