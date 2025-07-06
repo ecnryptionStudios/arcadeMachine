@@ -133,14 +133,26 @@
     if (selectedCode) {
       // Start game: hide menu, show iframe
       menu.style.display = 'none';
-      iframe.parentElement.style.display = 'block';
-      iframe.src = `https://arcade.makecode.com/---run?id=${selectedCode}`;
+
+// Create new iframe
+const iframe = document.createElement('iframe');
+iframe.style.position = 'absolute';
+iframe.style.top = '0';
+iframe.style.left = '0';
+iframe.style.width = '100%';
+iframe.style.height = '100%';
+iframe.allowFullscreen = true;
+iframe.frameBorder = '0';
+iframe.sandbox = 'allow-popups allow-forms allow-scripts allow-same-origin';
+iframe.src = `https://arcade.makecode.com/---run?id=${selectedCode}`;
+
+document.getElementById('iframe-container').appendChild(iframe);
     }
   } else if (key === 'escape') {
-    // Return to menu: show menu, hide iframe
-    iframe.parentElement.style.display = 'none';
-    iframe.src = ""; // optional: stop the running game
-    menu.style.display = 'flex'; // or your original display, e.g. 'block'
+    // Remove the iframe (stop the game)
+const container = document.getElementById('iframe-container');
+container.innerHTML = "";  // remove iframe
+menu.style.display = 'flex';
   }
 });
 })();
