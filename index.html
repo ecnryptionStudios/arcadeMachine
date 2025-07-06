@@ -55,7 +55,7 @@
 </head>
 <body>
 
-<h1>🎮 Arcade Machine</h1>
+<h1>🎮 Arcade Machine.</h1>
 
 <div>
   <button class="scroll-button" id="left">&laquo;</button>
@@ -132,7 +132,7 @@
       // Start game: hide menu, show iframe
       menu.style.display = 'none';
       iframe.parentElement.style.display = 'block';
-      iframe.src = `https://arcade.makecode.com/---codeembed#${selectedCode}`;
+      iframe.src = `https://arcade.makecode.com/---codeembed#pub:${selectedCode}`;
     }
   } else if (key === 'escape') {
     // Return to menu: show menu, hide iframe
