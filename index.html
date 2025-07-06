@@ -75,7 +75,9 @@
   const data = await response.json();
   const carousel = document.getElementById('carousel');
   const iframe = document.getElementById('game-frame');
+  const menu = document.getElementById('menu');
   let selectedKey = null;
+  let selectedCode = null;
 
   for (const [key, game] of Object.entries(data.games)) {
     const div = document.createElement('div');
@@ -101,9 +103,9 @@
     // Select new
     div.classList.add('selected');
     selectedKey = div.dataset.key;
+    selectedCode = div.dataset.code;
 
-    // Update iframe
-    iframe.src = `https://arcade.makecode.com/---codeembed#pub:${div.dataset.code}`;
+    // (we won’t update iframe here; only when starting the game)
   }
 
   // Scroll buttons
@@ -117,8 +119,29 @@
   // Select first game by default
   const firstGame = carousel.querySelector('.game');
   if (firstGame) selectGame(firstGame);
+
+  // Hide iframe initially
+  iframe.parentElement.style.display = 'none';
+
+  // Listen for keypresses
+  document.addEventListener('keydown', (e) => {
+    const key = e.key.toLowerCase();
+
+    if (key === 'a' || key === ' ' || key === 'q') {
+      if (selectedCode) {
+        // Start game
+        iframe.src = `https://arcade.makecode.com/---codeembed#${selectedCode}`;
+        iframe.parentElement.style.display = 'block';
+        menu.style.display = 'none';
+      }
+    } else if (key === 'escape') {
+      // Return to menu
+      iframe.parentElement.style.display = 'none';
+      iframe.src = ""; // optional: clear iframe
+      menu.style.display = 'flex'; // default was flex; use same as your CSS
+    }
+  });
 })();
 </script>
-
 </body>
 </html>
