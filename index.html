@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arcade Machine Menu</title>
+<style>
+  body { 
+    background: #111; 
+    color: #fff; 
+    font-family: sans-serif; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+  }
+  #carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    width: 80%;
+    margin: 1em;
+    padding: 1em 0;
+  }
+  .game {
+    flex: 0 0 auto;
+    margin: 0 1em;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    transition: border-color 0.3s;
+  }
+  .game img {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+  .game.selected {
+    border-color: #0af;
+  }
+  .scroll-button {
+    background: #333;
+    color: #fff;
+    border: none;
+    font-size: 2em;
+    padding: 0.2em 0.5em;
+    cursor: pointer;
+    margin: 0 0.5em;
+    border-radius: 0.2em;
+  }
+  iframe {
+    border-radius: 1em;
+  }
+</style>
+</head>
+<body>
+
+<h1>🎮 Arcade Machine</h1>
+
+<div>
+  <button class="scroll-button" id="left">&laquo;</button>
+  <div id="carousel"></div>
+  <button class="scroll-button" id="right">&raquo;</button>
+</div>
+
+<div id="iframe-container" style="position:relative;height:calc(300px + 5em);width:80%;overflow:hidden;">
+  <iframe id="game-frame" style="position:absolute;top:0;left:0;width:100%;height:100%;" 
+    src="" allowfullscreen="allowfullscreen" frameborder="0" 
+    sandbox="allow-scripts allow-same-origin"></iframe>
+</div>
+
+<script>
+(async () => {
+  const response = await fetch('games.json');
+  const data = await response.json();
+  const carousel = document.getElementById('carousel');
+  const iframe = document.getElementById('game-frame');
+  let selectedKey = null;
+
+  for (const [key, game] of Object.entries(data.games)) {
+    const div = document.createElement('div');
+    div.className = 'game';
+    div.dataset.code = game.code;
+    div.dataset.key = key;
+
+    const img = document.createElement('img');
+    img.src = game.image;
+    img.alt = key;
+
+    div.appendChild(img);
+    carousel.appendChild(div);
+
+    div.addEventListener('click', () => selectGame(div));
+  }
+
+  function selectGame(div) {
+    // Unselect previous
+    const prev = carousel.querySelector('.selected');
+    if (prev) prev.classList.remove('selected');
+
+    // Select new
+    div.classList.add('selected');
+    selectedKey = div.dataset.key;
+
+    // Update iframe
+    iframe.src = `https://arcade.makecode.com/---codeembed#pub:${div.dataset.code}`;
+  }
+
+  // Scroll buttons
+  document.getElementById('left').addEventListener('click', () => {
+    carousel.scrollBy({ left: -200, behavior: 'smooth' });
+  });
+  document.getElementById('right').addEventListener('click', () => {
+    carousel.scrollBy({ left: 200, behavior: 'smooth' });
+  });
+
+  // Select first game by default
+  const firstGame = carousel.querySelector('.game');
+  if (firstGame) selectGame(firstGame);
+})();
+</script>
+
+</body>
+</html>
